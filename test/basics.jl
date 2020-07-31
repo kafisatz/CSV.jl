@@ -525,4 +525,10 @@ f = CSV.File(transcode(GzipDecompressor, Mmap.mmap(joinpath(dir, "randoms.csv.gz
 @test length(f) == 70000
 @test eltype(f.first) == String
 
+# 702
+f = CSV.File(IOBuffer("a,b,c"))
+df = DataFrame(f)
+@test names(df) == ["a", "b", "c"]
+@test size(df, 1) == 0
+
 end
